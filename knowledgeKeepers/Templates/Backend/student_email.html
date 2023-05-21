@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Send an email to the parent</title>
+ <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+
+
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap.min.css' %}" >
+      <!-- site css -->
+      <link rel="stylesheet" href="{% static 'Backend/style.css'%}" >
+      <!-- responsive css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/responsive.css'%}" >
+      <!-- color css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/colors.css'%}" >
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap-select.css'%}" >
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/perfect-scrollbar.css'%}" >
+      <!-- custom css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/custom.css'%}" >
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/semantic.min.css'%}" >
+  </head>
+
+
+
+  <body>
+   <div id="content">
+    <div class="topbar">
+      <nav class="navbar navbar-expand-lg navbar-light">
+         <div class="full">
+            <div class="logo_section">
+               <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
+            </div>
+
+         </div>
+      </nav>
+   </div>
+
+
+   <div class="midde_cont">
+      <div class="container-fluid">
+         <div class="row column_title">
+            <div class="col-md-12">
+               <div class="page_title">
+                  <h2>Contact The parent</h2>
+               </div>
+            </div>
+         </div>
+
+         <div class="row column1">
+            <div class="col-md-12">
+               <div class="white_shd full margin_bottom_30">
+                  <div class="full graph_head">
+                     <div class="heading1 margin_0">
+                        <h2>Send email <small>(Write here)</small></h2>
+                        <div class="center-textarea">
+                           <textarea id="mail" class="enlarged-textarea"></textarea>
+                        </div>
+                        <div class="button-container">
+                           <button type="button" class="btn cur-p btn-outline-success" id="submit-btn">Submit</button>
+                           <button id="cancel-btn" class="btn cur-p btn-outline-danger" type="button">Cancel</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+   </div>
+</div>
+
+    <script>
+
+      var selectedemail = window.myValue;
+
+   const submitbtn = document.getElementById("submit-btn");
+   submitbtn.addEventListener('click', submit);
+
+   function submit() {
+
+  // Get the email content from the textarea
+  const emailContent = document.getElementById("mail").value;
+  // Send the email using AJAX or any other method
+  fetch('/student_email/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ content: emailContent,p: selectedemail}),
+  })
+    .then(response => {
+      // Email submission successful
+      // Send the "done" message to the parent window
+      window.opener.postMessage("done", window.location.origin);
+      window.close();
+
+    })
+    .catch(error => {
+      // Handle any errors that occur during the request
+      console.error(error);
+      // Show an error message or perform any other action
+    });
+}
+
+const cancelBtn = document.getElementById("cancel-btn");
+cancelBtn.addEventListener('click', () => {
+  // Send the "cancel" message to the parent window
+  window.opener.postMessage("cancel", window.location.origin);
+  // Close the popup window
+  window.close();
+});
+      </script>
+      
+      <p id="detected-text"></p>
+  
+      <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
+      <!-- <script src="{% static 'Backend/sendmail.js' %}"></script>  -->
+  
+      <script src="{% static 'js/result.js' %}"></script>
+      <script src="{% static 'Backend/js/popper.min.js'%}"></script>
+      <script src="{% static 'Backend/js/bootstrap.min.js'%}"></script>
+      <!-- wow animation -->
+      <script src="{% static 'Backend/js/animate.js'%}"></script>
+      <!-- select country -->
+      <script src="{% static 'Backend/js/bootstrap-select.js'%}"></script>
+      <!-- owl carousel -->
+      <script src="{% static 'Backend/js/owl.carousel.js'%}"></script> 
+      <!-- chart js -->
+      <script src="{% static 'Backend/js/Chart.min.js'%}"></script>
+      <script src="{% static 'Backend/js/Chart.bundle.min.js'%}"></script>
+      <script src="{% static 'Backend/js/utils.js'%}"></script>
+      <script src="{% static 'Backend/js/analyser.js'%}"></script>
+      <!-- nice scrollbar -->
+      <script src="{% static 'Backend/js/perfect-scrollbar.min.js'%}"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="{% static 'Backend/js/custom.js'%}"></script>
+      <!-- calendar file css -->     
+      <script src="{% static 'Backend/js/semantic.min.js'%}"></script>
+
+
+   <style type="text/css">
+
+      .center-textarea {
+         text-align: center;
+       }
+       
+       .enlarged-textarea {
+         width: 400%;
+         height: 200px;
+       }
+       
+       .button-container {
+         text-align: center;
+         margin-top: 20px;
+       }
+       
+       .button-container button {
+         text-align: center;
+         margin-right: 30px;
+       }
+      </style>
+
+      </body>
+</html>

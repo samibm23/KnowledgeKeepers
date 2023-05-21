@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script type="text/javascript">
+         $(document).ready(function(){
+           $('#predict-button').click(function(){
+             var text = $('#input-text').val();
+             var answer = $('#input-answer').val();
+             $.ajax({
+               url: '/grade/',
+               type: 'POST',
+               data: {
+                 'text': text,
+                 'answer': answer,
+               },
+               success: function(response){
+                 $('#prediction').html( response.prediction);
+               }
+             });
+           });
+         });
+       </script>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap.min.css' %}" >
+      <!-- site css -->
+      <link rel="stylesheet" href="{% static 'Backend/style.css'%}" >
+      <!-- responsive css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/responsive.css'%}" >
+      <!-- color css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/colors.css'%}" >
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap-select.css'%}" >
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/perfect-scrollbar.css'%}" >
+      <!-- custom css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/custom.css'%}" >
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/semantic.min.css'%}" >
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="inner_page price_table">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                     </div>
+                  </div>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div ><img class="img-responsive" src="{%static 'Backend/images/family.png'%}" alt="#" style="width: 80px; height: 75px;"/></div>
+                        <div class="user_info">
+                           <h6>{{nom}}</h6>
+                           <p><span class="online_animation"></span> Online</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4>General</h4>
+                  <ul class="list-unstyled components">
+                     <ul class="list-unstyled components">
+
+                     <li><a href="/students/"><i class="fa fa-child orange_color" ></i> <span>Students</span></a></li>
+                  </br>
+                     <li><a href="/historique/"><i class="fa fa-history red_color"></i> <span>Students' Records</span></a></li>
+                  </br>
+                     <li><a href="/grade/"><i class="fa fa-tasks blue1_color"></i> <span>Predict Grade</span></a></li>
+                  </br>
+               </ul>
+            </ul>
+               </div>
+       
+            </nav>
+      
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <div class="logo_section">
+                        </div>
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                             
+                              <ul class="user_profile_dd">
+                                 <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img  src="{%static 'Backend/images/family.png'%}" alt="#" /><span class="name_user">{{nom}}</span></a>
+                                    <div class="dropdown-menu">
+                                       <a class="dropdown-item" onclick="logout()" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Predict Grade</h2>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row -->
+                     <div class="row column1" >
+                        <div class="col-md-12">
+                           <div class="white_shd full margin_bottom_30" >
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Predict Grade</h2>
+                                 </div>
+                              </div>
+                              <div class="full price_table padding_infor_info" >
+                                    <!-- column price --> 
+                                    <div  >
+                                       <div class="table_price full" >
+                                          <div class="inner_table_price">
+                                             <div class="price_table_head red_bg">
+                                                <h2>Predict the grade here</h2>
+                                             </div>
+                                             <div class="price_table_inner">
+                                                <div class="cont_table_price_blog">
+                                                   <p class="red_color">Predicted grade:  
+                                                      <span class="price_no" id="prediction" >
+                                                     </p>
+                                                </div>
+                                                <div class="cont_table_price">
+                                                   <form>
+
+                                                   <div >
+                                                      <label class="heading1 margin_0" for="input-text">Enter text:</label>
+                                                      <textarea class="heading1 margin_0" id="input-text" rows="5" cols="50"></textarea>
+                                                      <br>
+                                                      <label class="heading1 margin_0" for="input-answer">Enter answer text:</label>
+                                                      <textarea class="heading1 margin_0" id="input-answer" rows="5" cols="50"></textarea>
+                                                   </div>
+                                                </form>
+
+                                                </div>
+                                             </div>
+                                             <div class="price_table_bottom">
+                                                <div class="center"><button type="button" id="predict-button" class="main_bt">Predict grade</button></div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                   
+                                    </div>
+                                    <!-- end column price -->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end row -->
+                  </div>
+               </div>
+               <!-- end dashboard inner -->
+            </div>
+         </div>
+      </div>
+      <!-- jQuery -->
+      <!-- jQuery -->
+      <script src="{% static 'js/result.js' %}"></script>
+      <script src="{% static 'Backend/js/popper.min.js'%}"></script>
+      <script src="{% static 'Backend/js/bootstrap.min.js'%}"></script>
+      <!-- wow animation -->
+      <script src="{% static 'Backend/js/animate.js'%}"></script>
+      <!-- select country -->
+      <script src="{% static 'Backend/js/bootstrap-select.js'%}"></script>
+      <!-- owl carousel -->
+      <script src="{% static 'Backend/js/owl.carousel.js'%}"></script> 
+      <!-- chart js -->
+      <script src="{% static 'Backend/js/Chart.min.js'%}"></script>
+      <script src="{% static 'Backend/js/Chart.bundle.min.js'%}"></script>
+      <script src="{% static 'Backend/js/utils.js'%}"></script>
+      <script src="{% static 'Backend/js/analyser.js'%}"></script>
+      <!-- nice scrollbar -->
+      <script src="{% static 'Backend/js/perfect-scrollbar.min.js'%}"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="{% static 'Backend/js/custom.js'%}"></script>
+      <!-- calendar file css -->     
+      <script src="{% static 'Backend/js/semantic.min.js'%}"></script>
+
+      <script></script>
+
+   </body>
+</html>

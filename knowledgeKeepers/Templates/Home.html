@@ -1,0 +1,475 @@
+{% extends 'chatbot.html' %}
+{% load static %}
+{% block all %}
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+
+<!-- Mirrored from templates.seekviral.com/qzain/quiz/Quiz1/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 May 2023 20:24:42 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- fonts -->
+    <link rel="stylesheet" href="{% static 'Home_assets/fonts/font.css' %}">
+
+    <!-- fontawesome 5 -->
+    <link rel="stylesheet" href="{% static 'cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css' %}" />
+    <!-- bootstrap 5 -->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/Bootstrap/bootstrap.min.css' %}">
+
+    <!-- Custom Css Files -->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Home_assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'Home_assets/css/animation.css' %}">
+
+    <!--Result Css-->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/result_style.css' %}">
+    <script src="{% static 'js/result.js' %}"></script>
+    
+    <!-- Custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+  <script>
+    const STATIC_URL = "{% static 'gifs/' %}";
+</script>
+<script>
+  var language = '{{language}}';
+  console.log(language);
+</script>
+
+
+       
+    <!-- Navbar  ------------------------------------------------------ -->
+    <div id="navbar-animmenu">
+      <ul class="show-dropdown main-navbar">
+          <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+          <li class="active" data-value="0">
+              <a href="javascript:void(0);" data-value="0"><i class="fas fa-house"></i>{% if language == "arabic"%}
+                الصفحة الرئيسية
+                {% endif %}
+                {% if language == "french"%}
+                Page d'accueil
+                {% endif %}
+                {% if language == "english"%}
+                Home Page
+                {% endif %}</a>
+          </li>
+          <li data-value="1">
+              <a href="javascript:void(1);" data-value="1"><i class="fas fa-graduation-cap"></i>{% if language == "arabic"%}
+                التعلم
+                {% endif %}
+                {% if language == "french"%}
+                Apprentissage
+                {% endif %}
+                {% if language == "english"%}
+                Learning
+                {% endif %} </a>
+          </li>
+          <li data-value="2">
+              <a href="javascript:void(2);" data-value="2"><i class="fa-solid fa-th-large"></i>{% if language == "arabic"%}
+                المجموعة
+                {% endif %}
+                {% if language == "french"%}
+                Collection
+                {% endif %}
+                {% if language == "english"%}
+                Collection
+                {% endif %} </a>
+          </li>
+          <li data-value="3">
+            <a href="javascript:void(3);" data-value="3"><i class="fas fa-history"></i>{% if language == "arabic"%}
+              التاريخ
+              {% endif %}
+              {% if language == "french"%}
+              Historique
+              {% endif %}
+              {% if language == "english"%}
+              History
+              {% endif %} </a>
+        </li>
+          
+          
+          
+      </ul>
+  </div>
+
+<div class="fixed-top-right"  style="z-index: 100000;"><div class="user-menu-wrap">
+  
+  <a class="mini-photo-wrapper" href="#"><img id="mini-photo" class="mini-photo" src="{% static 'images/'%}{{selected_avatar.imageurl}}"/></a>
+ 
+  
+  <div class="menu-container" >
+    <ul class="user-menu" style="padding-left:0 ;">
+      <div class="profile-highlight">
+        <img id="photo" src="{% static 'images/'%}{{selected_avatar.imageurl}}" alt="profile-img" width=36 height=36>
+         <div class="details">
+            <div id="profile-name">{{Username}}</div>
+        </div>
+      </div>
+        <li class="user-menu__item"><a class="user-menu-link" href="#" style="color: #F44336;" onclick="logout()">{% if language == "arabic"%}
+          تسجيل الخروج
+          {% endif %}
+          {% if language == "french"%}
+          Déconnexion
+          {% endif %}
+          {% if language == "english"%}
+          Logout
+          {% endif %}</a></li>
+        <li class="user-menu__item">
+          <div id="accordion">
+      <!-- panel class must be in -->
+      <a href="#web_dev" data-parent="#accordion" data-toggle="collapse" class="user-menu-link">
+        {% if language == "arabic"%}
+        اللغات
+          {% endif %}
+          {% if language == "french"%}
+          Langues
+          {% endif %}
+          {% if language == "english"%}
+          Languages
+          {% endif %}
+      </a>
+      <div class="collapse" id="web_dev" style="padding-bottom:0;">
+        <div class="list-group list-group-light">
+  <a href="#" id="arabic" class="list-group-item list-group-item-action px-3 border-0">
+      {% if language == "arabic"%}
+      العربية
+      {% endif %}
+      {% if language == "french"%}
+      Arabe
+      {% endif %}
+      {% if language == "english"%}
+      Arabic
+      {% endif %}
+  </a>
+  <a href="#" id="english" class="list-group-item list-group-item-action px-3 border-0">{% if language == "arabic"%}
+    الإنجليزية
+    {% endif %}
+    {% if language == "french"%}
+    Anglais
+    {% endif %}
+    {% if language == "english"%}
+    English
+    {% endif %}</a>
+  <a href="#" id="french" class="list-group-item list-group-item-action px-3 border-0">{% if language == "arabic"%}
+    الفرنسية
+    {% endif %}
+    {% if language == "french"%}
+    Français
+    {% endif %}
+    {% if language == "english"%}
+    French
+    {% endif %}</a>
+
+</div>
+      </div>
+          </div>
+        </li>
+      </div>
+    </ul>
+  </div>
+</div>
+
+<h3 style="position: fixed;
+top: 18px;
+right: 11vh;color: white;" id="currency_test">{{mathcurrency}} ∯</h3>
+
+<input id="currency" value={{mathcurrency}} hidden>
+
+    <!-- Container wrapper -->
+  
+      <!-- Collapsible wrapper -->
+
+      <!-- Collapsible wrapper -->
+  
+      <!-- Right elements -->
+
+      
+      <!-- Right elements -->
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+
+        <div id="load_into" class="container">
+            <div class="row">
+                <div class="tab-100 order-c col-md-6 p-relative">
+
+                    <!-- side image -->
+                    
+                    <div class="side-img">
+                      <!-- <image style="height: 100vh;" src="{% static 'Home_assets/images/welcome.png' %}"></image> -->
+                      <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_jrpzvtqz.json" background="transparent"  speed="1"  style="height: 100vh;" loop autoplay></lottie-player>
+                  </div>
+                    <!-- bar -->
+                </div>
+                <div class="tab-100 col-md-6">
+                    <div class="show-section wrapper">
+
+                        <!-- step 1 -->
+                        <section class="steps" style="margin-top: 15vh;">
+                               {% if language == "arabic"%}
+                               <style>
+                                h1 {
+                                  text-align: right !important;
+                                  direction: rtl !important;
+                                }
+                              </style>
+                               <h1 stye="text-align: right !important; direction: rtl !important; font-size: 24px !important;">
+                                مرحبًا بكم أيها الطلاب
+                                {% endif %}
+                                <h1 stye="text-align:left;">
+                                {% if language == "french"%}
+                                Salut les étudiants !
+                                {% endif %}
+                                {% if language == "english"%}
+                                <h1 stye="text-align:left;">
+                                Hello students!
+                                {% endif %}</h1> 
+                               {% if language == "arabic"%}
+                               <p style=" font-family: 'Eina02normal';
+                                font-size: 1.1em;
+                               line-height: 150%;
+                               text-align: right;
+                               color: back;
+                               letter-spacing: .5px;
+                               margin-top: 5vh;">
+    هل أنت مستعد لرفع مهاراتك في الرياضيات إلى المستوى التالي؟ منصتنا التعليمية عبر الإنترنت هنا لمساعدتك في ذلك! لقد صممنا طريقة ممتعة وتفاعلية لتعزيز مهاراتك في الرياضيات من خلال مجموعة متنوعة من المسائل. مع مساعدة التعلم الآلي، يمكنك إنشاء صور لمساعدتك في فهم المسائل بشكل أفضل وتطوير مهارات التفكير البصري. بالإضافة إلى ذلك، ستحصل على ردود فورية لمساعدتك في تحسين مهاراتك في حل المسائل. نحن نضيف باستمرار ميزات جديدة لجعل عملية التعلم أكثر إشراكًا ويسهل الوصول إليها بالنسبة لك. فلماذا تنتظر؟    {% endif %}
+    {% if language == "french"%}
+    <p style=" font-family: 'Eina02normal';
+                                font-size: 1.1em;
+                               line-height: 150%;
+                               text-align: left;
+                               color: back;
+                               letter-spacing: .5px;
+                               margin-top: 5vh;">
+    Êtes-vous prêts à améliorer vos compétences en mathématiques ? Notre plateforme d'apprentissage en ligne est là pour vous aider à atteindre cet objectif ! Nous avons conçu une manière amusante et interactive pour vous permettre de développer vos compétences mathématiques à travers une variété de problèmes. Grâce à l'apprentissage automatique, vous pouvez générer des images pour mieux comprendre les problèmes et développer votre pensée visuelle. De plus, vous recevrez un retour instantané pour améliorer vos compétences en résolution de problèmes. Nous ajoutons constamment de nouvelles fonctionnalités pour rendre l'apprentissage plus captivant et accessible pour vous. Alors, pourquoi attendre ?
+    {% endif %}
+    {% if language == "english"%}
+    <p style=" font-family: 'Eina02normal';
+                                font-size: 1.1em;
+                               line-height: 150%;
+                               text-align: left;
+                               color: back;
+                               letter-spacing: .5px;
+                               margin-top: 5vh;">
+    Are you ready to take your math skills to the next level? Our online learning platform is here to help you do just that! We've designed a fun and interactive way for you to enhance your math skills through a variety of math problems. With the help of Machine Learning, you can generate images to help you better understand the problems and develop your visual thinking skills. Plus, you'll get instant feedback to help you improve your problem-solving skills. We're constantly adding new features to make learning more engaging and accessible for you. So why wait?
+    {% endif %}</p>
+ <center>
+ <button class="button-24" role="button" onclick="triggerClickEvent()" style="margin-top: 5vh;">{% if language == "arabic"%}
+  ابدأ التعلم
+  {% endif %}
+  {% if language == "french"%}
+  Commencer l'apprentissage !
+  {% endif %}
+  {% if language == "english"%}
+  Start Learning!
+  {% endif %}</button>
+</center>
+                        </section>
+
+                       
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <div id="error"></div>
+
+
+    <!-- bootstrap 5 -->
+    <script src="{% static 'Home_assets/js/Bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- jQuery -->
+    <script src="{% static 'Home_assets/js/jQuery/jquery-3.6.3.min.js' %}"></script>
+
+    <!-- Result JS -->
+    <script src="{% static 'js/result.js' %}"></script>
+
+    <!-- Custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="{% static 'js/cards.js' %}"></script>
+<script>
+  
+function changeLang(){
+  const data = { // the data you want to send in the request body
+    "da": language, 
+  }
+  console.log(data);
+  fetch('/chooseLang/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(data) // convert data to JSON string
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json(); // convert response to JSON format
+    } else {
+      throw new Error('Network response was not ok.');
+    }
+  })
+  .then(data => {
+    console.log(data); // handle the response data
+    location.reload();
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+}
+</script>
+
+    <script>
+      // Get the specific <a> elements by their IDs
+      var arabicLink = document.getElementById('arabic');
+      var englishLink = document.getElementById('english');
+      var frenchLink = document.getElementById('french');
+      var links = document.querySelectorAll('a');
+
+      if(language=="arabic"){
+        arabicLink.classList.add("active")
+      }else if (language=="french"){
+        frenchLink.classList.add("active")
+      }else{
+        englishLink.classList.add("active")
+      }
+      // Find the currently active <a> element
+      var activeLink = null;
+      function regetActive(){
+      links.forEach(function(link) {
+        if (link.classList.contains('active')) {
+          activeLink = link;
+        }
+      });
+    }
+      // Add click event listeners to the individual <a> elements
+      arabicLink.addEventListener('click', function(event) {
+        regetActive();
+        activeLink.classList.remove("active");
+        arabicLink.classList.add("active")
+        language="arabic";
+        event.preventDefault();
+        console.log('Clicked Arabic');
+        changeLang();
+        // Perform actions specific to the Arabic link
+      });
+  
+      englishLink.addEventListener('click', function(event) {
+        regetActive();
+        activeLink.classList.remove("active");
+        englishLink.classList.add("active");
+        language="english";
+        event.preventDefault();
+        console.log('Clicked English');
+        changeLang();
+        // Perform actions specific to the English link
+      });
+  
+      frenchLink.addEventListener('click', function(event) {
+        regetActive();
+        activeLink.classList.remove("active");
+        frenchLink.classList.add("active");
+        language="french";
+        event.preventDefault();
+        console.log('Clicked French');
+        changeLang();
+        // Perform actions specific to the French link
+      });
+    </script>
+    <script>
+
+document.querySelector('.mini-photo-wrapper').addEventListener('click', function() {
+  document.querySelector('.menu-container').classList.toggle('active');
+});
+      // ---------horizontal-navbar-menu-----------
+		var tabsNewAnim = $('#navbar-animmenu');
+		var selectorNewAnim = $('#navbar-animmenu').find('li').length;
+    var contentDiv = document.getElementById("load_into");
+		//var selectorNewAnim = $(".tabs").find(".selector");
+		var activeItemNewAnim = tabsNewAnim.find('.active');
+		var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+		var itemPosNewAnimLeft = activeItemNewAnim.position();
+		$(".hori-selector").css({
+			"left":itemPosNewAnimLeft.left + "px",
+			"width": activeWidthNewAnimWidth + "px"
+		});
+		$("#navbar-animmenu").on("click","li",function(e){
+			$('#navbar-animmenu ul li').removeClass("active");
+      var selectedValue = $(this).data('value');
+			$(this).addClass('active');
+			var activeWidthNewAnimWidth = $(this).innerWidth();
+			var itemPosNewAnimLeft = $(this).position();
+			$(".hori-selector").css({
+				"left":itemPosNewAnimLeft.left + "px",
+				"width": activeWidthNewAnimWidth + "px"
+			});
+      console.log("Clicked on tab " + selectedValue);
+      if(selectedValue==1){
+        loadHTMLPage("/art/",selectedValue);
+      }else if(selectedValue==0){
+        loadHTMLPage("/land/",selectedValue);
+      }else if(selectedValue==2){
+        loadHTMLPage("/avatar_collection/",selectedValue);
+      }else if(selectedValue==3){
+        loadHTMLPage("/history/",selectedValue);
+      }
+		});
+    function triggerClickEvent() {
+  // Trigger the click event on the specific element
+  $("#navbar-animmenu").find("li[data-value='1']").trigger("click");
+}
+    function loadHTMLPage(url, selectedValue) {
+      // Create a new XMLHttpRequest object
+      var xhr = new XMLHttpRequest();
+
+      
+      // Set the URL of the HTML page to be loaded
+      xhr.open("GET", url, true);
+      // Set the onload callback function
+      xhr.onload = function() {
+        
+        // Check if the request was successful
+        if (xhr.status === 200) {
+          
+
+          
+          // Now you can use the 'answer' variable as needed
+          console.log("here");
+          
+          // Set the content of the content div to the response text
+          contentDiv.innerHTML = xhr.responseText;
+          if (selectedValue==2){
+            onLoad(); 
+          }else if (selectedValue==1){
+            $("#ans").val("{{Answer}}");
+          }
+          
+          
+        }
+      };
+      xhr.send();
+}
+    </script>
+    
+</body>
+
+<!-- Mirrored from templates.seekviral.com/qzain/quiz/Quiz1/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 May 2023 20:24:53 GMT -->
+</html>
+{% endblock %}

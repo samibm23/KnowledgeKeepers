@@ -1,0 +1,27 @@
+
+
+.mh-defeat {
+background-color: #D22B2B;
+}
+
+.mh-defeat:enabled{
+    background-color: #D22B2B;
+    color:white;
+}
+.mh-victory{
+background-color: #81B622;
+}
+
+.mh-victory:enabled{
+    background-color: #81B622;
+    color:white;
+}
+
+.mh-mid{
+    background-color: #DBA40E;
+    }
+    
+.mh-mid:enabled{
+        background-color: #DBA40E;
+        color:white;
+}

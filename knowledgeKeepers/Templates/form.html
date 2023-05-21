@@ -1,0 +1,231 @@
+<!-- form.html -->
+{% extends 'single.html' %}
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+
+  <h3 id="problem">
+    {{ Problem }} 
+  </h3>
+  <h3>
+    <i class="fas fa-volume-up"id="play-audio-button" style="float:right"></i>
+  </h3>
+  <br>
+  <textarea name="prob" id="prob" hidden>{{ Problem }}</textarea>
+  <textarea name="ans" id="Answer" hidden>{{ Answer }}</textarea>
+  <div class="col-lg-5">
+    <div class="card border-0">
+      <div class="card-header bg-secondary text-center p-4">
+        <h1 class="text-white m-0">
+          Your Answer
+        </h1>
+      </div>
+      <div class="card-body rounded-bottom bg-primary p-5">
+        <form>
+          <input type="button" id="show-popup" class="btn btn-secondary btn-block border-0 py-3" value="Show Pop-up" >
+  <input id="generate-text-btn" value="Generate image" class="btn btn-secondary btn-block border-0 py-3" readonly>
+  <br>
+          <div class="form-group">
+            <div style="width:94%; display: inline-block">
+            <input id="answer" type="text" class="form-control border-0 p-4" placeholder="Your Answer ?" required="required">
+          </div>
+          <div style="width:5%; display: inline-block">
+            <h3>
+            <i class="fas fa-microphone" id="record-button"></i>
+          </h3>
+          </div>
+          </div>
+          
+          
+          <div>
+            <input id="validate" value="Validate" class="btn btn-secondary btn-block border-0 py-3" type="button">
+
+            <h3 id="feedback">
+              FeedBACK
+            </h3>
+          </div>
+          <div>
+            <input id="Hint" value="Hint" class="btn btn-secondary btn-block border-0 py-3" type="button">
+
+            <h3 id="hint">
+              Hint
+            </h3>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <input id="answer" type="text" class="form-control border-0 py-4" placeholder="Your Answer ?">
+  <img src="test" id="my-image">
+  <!-- Button to trigger the pop-up -->
+  <p id="detected-text"></p>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      const showbtn = document.getElementById("show-popup");
+      showbtn.addEventListener('click', showpop);
+        
+  function showpop() {         
+        $.ajax({
+    url: '/whiteboard/',
+    method: 'GET',
+    success: function(response) {
+      // Open a new window with the response from the Django function
+      var popupWindow = window.open('', '_blank','width=900,height=800');
+      popupWindow.document.write(response);
+      window.addEventListener("message", function(event) {
+        if (event.origin !== window.location.origin) {
+          // Message is not from this origin
+          return;
+        }
+        
+        // Handle the message received from the pop-up window
+        $("#inp").val(event.data);
+      }, false);
+    }
+  });
+}
+</script>
+<script>
+        $(document).ready(function() {
+        $('#generate-text-btn').click(function() {
+    var prompt = $('#problem').text();
+    var data = {
+  "prompt":prompt ,
+  "n": 1,
+  "size": "512x512"
+};
+    $.ajax({
+      type: 'POST',
+      url: 'https://api.openai.com/v1/images/generations',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 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',
+      },
+      data: JSON.stringify(data),
+      success: function(response) {
+        if (typeof response === 'string') {
+            // Parse the JSON string to an object
+            response = JSON.parse(response);
+        }
+        console.log(response);
+        var firstUrl = response.data[0].url;
+        $('#my-image').attr('src', firstUrl);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+});
+    </script>
+
+
+
+
+<script>
+  function openPopup() {
+    var popupWindow = window.open("popup.html", "Popup", "width=400,height=300");
+    popupWindow.focus();
+  }
+  </script>
+
+<script>
+  $(document).ready(function() {
+      $('#play-audio-button').on('click', function(event) {
+          event.preventDefault(); // Prevent default form submission behavior
+          
+          $.ajax({
+              url: '/text-to-speech/', // Replace with your Django function URL
+              type: 'POST',
+              data: {
+        'text': $('#problem').text(),
+    },
+              success: function(response) {
+                  // Handle successful AJAX response
+                  console.log('Audio played successfully!');
+              },
+              error: function(response) {
+                  // Handle AJAX errors
+                  console.log('Error playing audio:', response);
+              }
+          });
+      });
+  });
+
+  $(document).ready(function() {
+      $('#record-button').on('click', function(event) {
+          event.preventDefault(); // Prevent default form submission behavior
+          
+          $.ajax({
+                url: '/speech_to_text/',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                },
+                success: function(response) {
+                  // handle success response
+                  console.log(response);
+                },
+                error: function(xhr, status, error) {
+                  // handle error response
+                  console.log(error);
+                }
+              });
+      });
+  });
+
+  $(document).ready(function() {
+        $('#validate').click(function(event) {
+
+          var data = {
+            "model": "gpt-3.5-turbo","messages":
+                    [{"role": "user",
+                    "content": "The problem is: ' "+$('#problem').text()+" The answer is " +$('#Answer').val() + "A student provided the answer '"+$("#answer").val()+"' Was he correct? and how to solve the problem?"
+     }]             };
+    $.ajax({
+      type: 'POST',
+      url: 'https://api.openai.com/v1/chat/completions',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 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',
+      },
+      data: JSON.stringify(data),
+      success: function(response) {
+        $("#feedback").text(response.choices[0].message.content)
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+});
+
+$('#Hint').click(function(event) {
+
+var data = {
+  "model": "gpt-3.5-turbo","messages":
+          [{"role": "user",
+          "content": "Give me hint for this mathimatical problem without solving it , The problem is: ' "+$('#problem').text()
+}]             };
+$.ajax({
+type: 'POST',
+url: 'https://api.openai.com/v1/chat/completions',
+headers: {
+'Content-Type': 'application/json',
+'Authorization': 'Bearer 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',
+},
+data: JSON.stringify(data),
+success: function(response) {
+$("#hint").text(response.choices[0].message.content)
+},
+error: function(error) {
+console.log(error);
+}
+});
+});
+
+  </script>
+{% endblock %}

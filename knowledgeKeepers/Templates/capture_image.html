@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>Camera Capture</title>
+  </head>
+  <body>
+    <div>
+      <button id="capture-button">Capture</button>
+      <button id="save-button">Save Image</button>
+    </div>
+    <div>
+      <video id="video" width="640" height="480" autoplay></video>
+      <canvas id="canvas" width="640" height="480"></canvas>
+    </div>
+    <script>
+      const captureButton = document.querySelector('#capture-button');
+      const saveButton = document.querySelector('#save-button');
+      const video = document.querySelector('#video');
+      const canvas = document.querySelector('#canvas');
+
+      captureButton.addEventListener('click', async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        video.play();
+      });
+
+      saveButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const capturedImage = canvas.toDataURL('image/jpeg');
+
+        saveImage(capturedImage);
+      });
+
+      async function saveImage(imageData) {
+        const response = await fetch('/save-image/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ foo : imageData }),
+        });
+
+        const result = await response.json();
+        console.log(result);
+      }
+    </script>
+  </body>
+</html>

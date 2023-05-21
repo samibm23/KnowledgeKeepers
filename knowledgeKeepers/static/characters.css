@@ -1,0 +1,6 @@
+
+.card:focus{
+    border: 3px solid #FF4742;
+    border-radius: 5%;
+    transition: 50ms;
+}

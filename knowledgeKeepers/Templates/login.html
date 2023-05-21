@@ -1,0 +1,200 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <style>
+    
+.container  {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 600px;
+  width: 1200px;
+  background-image: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px 8px #d0d0d0;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  transform: translatey(-50%);
+  text-align: justify;
+  color: black;
+  padding: 40px;
+  font-family: 'Merriweather', serif;
+}
+
+h1 {
+  font-weight: 900;
+  text-align: center;
+}
+
+h3 {
+  font-weight: 300;
+}
+
+.flap {
+  width: 100%;
+  height: 100%;
+}
+
+
+  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'inscription/assets/css/grade_btns.css' %}">
+    <title>Document</title>
+</head>
+<body>
+  <form id="form" method="POST">
+    {% csrf_token %}
+    <label id="creds" style="display: none;color: white;"><h3>Wrong Creds !</h3></label>
+    <input id="login" type="checkbox"/>
+    <label for="password"style="display: none;">Password</label>
+    <input name="Username" id="Username" type="text" pattern=".{3,}"  placeholder="Enter your Username" required="required" title="Wasn't your password &quot;password123&quot;? 🤫"/>
+    <label for="email" style="display: none;">Email</label>
+    <input name="password" id="email" type="password" pattern=".{3,}"  placeholder="Enter your password" required="required" title="Wasn't your password &quot;password123&quot;? 🤫"/>
+    <label class="login-button" for="login"><span>Enter</span>
+      <svg>
+        <path d="M10,17V14H3V10H10V7L15,12L10,17M7,2H17A2,2 0 0,1 19,4V20A2,2 0 0,1 17,22H7A2,2 0 0,1 5,20V16H7V20H17V4H7V8H5V4A2,2 0 0,1 7,2Z"></path>
+      </svg>
+    </label>
+    <a href="/signup/" style="color: white;"><h3><u>If you don't have an account you can sign up here :)</u></h3></a>
+<div class="padlock">
+      <div class="padlock__hook">
+        <div class="padlock__hook-body"></div>
+        <div class="padlock__hook-body"></div>
+      </div>
+      <div class="padlock__body">
+        <div class="padlock__face">
+          <div class="padlock__eye padlock__eye--left"></div>
+          <div class="padlock__eye padlock__eye--right"></div>
+          <div class="padlock__mouth padlock__mouth--one"></div>
+          <div class="padlock__mouth padlock__mouth--two"></div>
+          <div class="padlock__mouth padlock__mouth--three"></div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="app">
+      <button class="logout-button" type="reset" style="display:none;">Logout</button>
+      
+      <div class="container">
+        <div class="content">
+          <div class="d-flex flex-row">
+            <video id="video" width="640" height="500" autoplay></video>
+            <img src="{% static 'images/Camera-Pana.png' %}" style="height: 40vh;width: 44vh;">
+            <label style="z-index: 10;position: absolute;right:40px;bottom:57vh;"><h3>Say Hi to the camera so we can identify your face :) </h3></label>
+            <div class="centerer">
+            <a href="#" class="btn-2" id="save-button" style="text-align: center;">Save Image</a>
+          </div>
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+          </div>
+        </div>
+        <div class="flap"></div>
+      </div>
+      <div>
+      </div>
+      <!--
+      <div class="d-flex flex-row">
+        <video id="video" width="640" height="480" autoplay></video>
+        <img src="{% static 'images/Camera-Pana.png' %}" style="height: 40vh;">
+    
+        <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+      </div>
+      -->
+    </form>
+    </div>
+
+  
+  
+
+  <script>
+    const captureButton = document.querySelector('#capture-button');
+    const saveButton = document.querySelector('#save-button');
+    const creds = document.querySelector('#creds');
+    const video = document.querySelector('#video');
+    const canvas = document.querySelector('#canvas');
+    const button = document.querySelector(".login-button")
+    const form = document.querySelector('#form');
+    const reset = document.querySelector(".logout-button")
+    button.addEventListener('click', async (event) => {
+      const formData = new FormData(form);
+      document.querySelector('.app').style.display="none";
+  
+      const response = await fetch('/login/', {
+      method: 'POST',
+      body: formData
+      });
+        const result = await response.json();
+        
+        if (result.success) {
+          if (result.role == "Parent"||result.role == "Teacher"){
+            window.location.href = '/students/';
+          }else{
+          // Credentials are correct
+          console.log('Login successful!');
+          document.querySelector('.app').style.display=""
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          video.srcObject = stream;
+          video.play();
+          fetch('/get_csrf_token/')
+          .then(response => response.json())
+          .then(data => {
+            const csrfTokenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+            csrfTokenInput.value = data.csrf_token;
+        });}
+        } else {
+          // Credentials are incorrect
+          reset.click();
+          creds.style.display = "";
+          console.log('Invalid username or password');
+        }
+      });
+    saveButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const capturedImage = canvas.toDataURL('image/jpeg');
+
+      saveImage(capturedImage);
+    });
+    function getCSRFToken() {
+  const cookieValue = document.cookie.match(/(^|[^;]+)csrftoken=([^;]+)/);
+  return cookieValue ? cookieValue[2] : '';
+}
+    async function saveImage(imageData) {
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const response = await fetch('/auth/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json',
+  'X-CSRFToken': getCSRFToken()},
+  body: JSON.stringify({ foo : imageData }),
+});
+console.log("here");
+ // Wait for 1 second
+
+const result = await response.json();
+console.log(result);
+if (result.success) {
+  window.location.href = '/home/';
+} else {
+  window.location.href = '/login/';
+}
+}
+  </script>
+
+</body>
+</html>
+
+{% endblock %}

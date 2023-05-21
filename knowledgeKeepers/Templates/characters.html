@@ -1,0 +1,105 @@
+{% load static %}
+
+<style>
+  .list-group-item-action.active {
+    background-color:#F44336;
+    border-color: #F44336;
+  color:white;
+  }
+</style>
+<!--  saif contents goes here  --------------------------------------------------- -->  
+<link rel="stylesheet" href="{% static 'characters.css' %}">
+<div class="container-fluid d-flex  justify-content-center mt-5" style="padding-top: 5vh;">
+  <div class="d-flex flex-wrap justify-content-center gap-3" style="width:90%;">
+    {% for avatar in avatars%}
+    <div class="card" id="{% if avatar.selected %}focused{% endif %}" tabindex="{{avatar.unique_id}}"  style="width: 13rem;">
+          <img src="{% static 'images/'%}{{avatar.imageurl}}" class="card-img-top " alt="Sunset Over the Sea"/>
+          <div class="card-body">
+            <p class="card-text" style="text-align: center;"><strong>{{avatar.name}}</strong> </p>
+          </div>
+        </div>
+    {% endfor %}
+    
+    
+  </div>
+
+</div>
+<br>
+<br>
+<center>
+  <button class="button-24" id="create-character-btn" onclick="showPopup()">
+    {% if language == "arabic"%}
+    إنشاء شخصية
+          {% endif %}
+          {% if language == "french"%}
+          Créer un personnage
+          {% endif %}
+          {% if language == "english"%}
+          Create Character
+          {% endif %}
+  </button>
+</center>
+
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="hidePopup()">&times;</span>
+    {% if language == "arabic"%}
+    <h2>عملة الرياضيات غير كافية</h2>
+    <h3>تحتاج إلى 5 ∯ (عملة الرياضيات) على الأقل لتكوين شخصيات جديدة.</h3>
+    <p>يمكنك ذلك عن طريق حل المسائل الرياضية :)</p>
+          {% endif %}
+          {% if language == "french"%}
+          <h2>Pas assez de devise mathématique</h2>
+    <h3>Vous avez besoin d'au moins 5 ∯ (devise mathématique) pour pouvoir créer de nouveaux personnages.</h3>
+    <p>Vous pouvez le faire en résolvant des problèmes mathématiques :)</p>
+          {% endif %}
+          {% if language == "english"%}
+          <h2>Not Enough Math Currency</h2>
+    <h3>You need at least 5 ∯ (Math currency) to be able to create new characters.</p>
+    <p>You can do so by completing math problems :)</p>
+          {% endif %}
+  </div>
+</div>
+
+<style>
+  /* Popup container */
+.popup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Popup content */
+.popup-content {
+  background-color: white;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Close button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
+
+<!--  saif contents ends here  ------------------------------------------------- --> 

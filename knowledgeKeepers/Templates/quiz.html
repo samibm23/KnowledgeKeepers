@@ -1,0 +1,448 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+
+<!-- Mirrored from templates.seekviral.com/qzain/quiz/Quiz1/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 May 2023 20:24:42 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+
+    <link rel="stylesheet" href="{% static 'Home_assets/fonts/font.css' %}">
+
+    <!-- fontawesome 5 -->
+    <link rel="stylesheet" href="{% static 'cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css' %}" />
+    <!-- bootstrap 5 -->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/Bootstrap/bootstrap.min.css' %}">
+
+    <!-- Custom Css Files -->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Home_assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'Home_assets/css/animation.css' %}">
+
+    <!--Result Css-->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/result_style.css' %}">
+    <!-- character style -->
+    <link rel="stylesheet" href="{% static 'quiz.css' %}">
+</head>
+<body>
+  
+  <style>
+    .btn {
+      background-color: #FF4742;
+      border: none;
+      color: white;
+      padding: 12px 16px;
+      font-size: 20px;
+      cursor: pointer;
+        display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 1;
+    }
+    
+    /* Darker background on mouse-over */
+    .btn:hover {
+      background-color: #FF4742;
+    }
+    .smallbtn {
+        background-color: white;
+        border: none;
+        color: #FF4742;
+        padding: 10px 10px;
+        font-size: 10px;
+        cursor: pointer;
+        border: 1px solid #FF4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+    }
+    
+    /* Darker background on mouse-over */
+    .smallbtn:hover {
+      background-color: #FF4742;
+      color: white;
+    }
+    </style>
+  <!--  saif contents goes here  --------------------------------------------------- -->  
+  <div class="container bg-transparent">
+    <div class="row "style=" height:85vh; width: 100vw; padding-top:1%">
+      <div class="col-8  h-100 border  border-3 border-top-0 border-bottom-0 border-start-0" 
+      style=" padding-inline:10%;">
+        <div class="row h-75  ">
+          <div class="col w-100 h-100 d-flex align-items-center flex-column" >
+            <textarea name="ans" id="Answer" hidden>{{ Answer }}</textarea>
+            <div id="tries" style="padding: 1vh;"> <h1 id="numOfMistakes">{% if language == "arabic"%}
+              1/3 : عدد المحاولات 
+              {% endif %}
+              {% if language == "french"%}
+              Nombre de tentatives : 1/3
+              {% endif %}
+              {% if language == "english"%}
+              Number of tries : 1/3
+              {% endif %} </h1></div>
+            <div id="button" style="float: right;padding: 3vh;">
+            <button class="smallbtn" id="toggle-something" onclick="text_to_audio()" > <i class="fas fa-volume-up "></i></button>
+          </div>
+          {% csrf_token %}
+          <h3 id="gett" class="eng" style="display: none;">{{Problem}}</h3>
+          <div class='box'>
+          <h3 class='box-inner' class="q-heading" style="font-family: Arial, sans-serif;color: aliceblue;font-size: 18px;">
+            {% if language == "arabic"%}
+            {{Problem_ar}}
+            {% endif %}
+            {% if language == "french"%}
+            {{Problem_fr}}
+            {% endif %}
+            {% if language == "english"%}
+            {{Problem}}
+            {% endif %}
+          </h3>
+      </div>
+            <div class="form-inner">
+              <!-- heading -->
+              <div class="row d-flex justify-content-center align-content-center" style="padding-left: 17%;">
+                  <div class="tab-90 col-md-2">
+                    
+                      <button class="btn" id="toggle-something" onclick="showpop()">&nbsp;&nbsp;<i class="fas fa-pencil"></i></button>
+                    
+                  </div>
+              <div class="tab-90 col-md-6 delay-300 bounce-left ">
+                  
+                  <label for="inp" class="inp">
+                      <input type="text" id="inp" placeholder="&nbsp;">
+                      <span class="label">{% if language == "arabic"%}                 
+الإجابة   
+                        {% endif %}
+                        {% if language == "french"%}
+                        La réponse est ?
+                        {% endif %}
+                        {% if language == "english"%}
+                        Answer?
+                        {% endif %}</span>
+                      <span class="focus-bg"></span>
+                    </label>
+                    
+              </div>
+              <div class="tab-90 col-md-2">
+                  <button class="btn" id="toggle-something" onclick="record()">&nbsp;&nbsp;<i class="fas fa-microphone" id="record-button"></i></button>
+              </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      <div class="row h-25   d-flex align-items-start">
+        <div class="col w-50 h-100 d-flex justify-content-start" >
+
+          <a href="#" onclick="showresult()" class="button button--piyo">
+            <div class="button__wrapper">
+                <span class="button__text">{% if language == "arabic"%}
+                  تلميح
+                  {% endif %}
+                  {% if language == "french"%}
+                  indice ?
+                  {% endif %}
+                  {% if language == "english"%}
+                  Hint ?
+                  {% endif %}</span>
+            </div>
+            <div class="characterBox">
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                </div>
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                </div>
+                <div class="character">
+                    <div class="character__face"></div>
+                </div>
+            </div>
+        </a>
+     
+
+        </div>
+        <div class="col w-50 h-100 d-flex justify-content-center" >
+
+          <a href="#" class="button button--piyo" onclick="validate()">
+            <div class="button__wrapper">
+                <span class="button__text">{% if language == "arabic"%}
+                  تأكيد
+                  {% endif %}
+                  {% if language == "french"%}
+                  Valider
+                  {% endif %}
+                  {% if language == "english"%}
+                  Validate
+                  {% endif %}</span>
+            </div>
+            <div class="characterBox">
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                </div>
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                </div>
+                <div class="character">
+                    <div class="character__face"></div>
+                </div>
+            </div>
+        </a>
+     
+
+        </div>
+        
+      </div>
+      </div>
+      
+    <div class="col-4  h-100" >
+      <div class="row h-50   d-flex align-content-center border border-3 border-top-0 border-end-0 border-start-0 " >
+        <div class="col h-75 d-flex  justify-content-center" >
+          <div id="loader" style="display: none;">
+        
+            <div id="loading_doodle" class="loadingio-spinner-eclipse-d06nutrbjt4">
+                <div class="ldio-5e857ykiagb">
+                <div></div>
+                </div></div>
+            
+    
+        </div>
+          <a onclick="GenerateImage()" id="btn1" href="#" class="button button--hoo align-self-center"style="width: 50%; height: 35%;">
+            <div class="button__wrapper">
+                <span class="button__text">{% if language == "arabic"%}
+                  صورة
+                  {% endif %}
+                  {% if language == "french"%}
+                  Image
+                  {% endif %}
+                  {% if language == "english"%}
+                  Image
+                  {% endif %}</span>
+            </div>
+            <div class="characterBox">
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                    <div class="charactor__body"></div>
+                </div>
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                    <div class="charactor__body"></div>
+                </div>
+                <div class="character">
+                    <div class="character__face"></div>
+                    <div class="charactor__face2"></div>
+                    <div class="charactor__body"></div>
+                </div>
+            </div>
+        </a>
+        
+        </div>
+      </div>
+      <div class="row h-50 d-flex align-content-center">
+        <div class="col h-75 d-flex justify-content-center">
+          <div id="loader2" style="display: none;">
+        
+            <div id="loading_doodle2" class="loadingio-spinner-eclipse-d06nutrbjt4">
+                <div class="ldio-5e857ykiagb">
+                <div></div>
+                </div></div>
+            
+    
+        </div>
+        <a onclick="GenerateStable()" id="btn2" href="#" class="button button--pen align-self-center"style="width: 50%; height: 35%;">
+          <div class="button__wrapper">
+              <span class="button__text">{% if language == "arabic"%}
+                صورة
+                {% endif %}
+                {% if language == "french"%}
+                Image
+                {% endif %}
+                {% if language == "english"%}
+                Image
+                {% endif %}</span>
+          </div>
+          <div class="characterBox">
+              <div class="character wakeup">
+                  <div class="character__face"></div>
+                  <div class="charactor__face2"></div>
+              </div>
+              <div class="character wakeup">
+                  <div class="character__face"></div>
+                  <div class="charactor__face2"></div>
+              </div>
+              <div class="character">
+                  <div class="character__face"></div>
+                  <div class="charactor__face2"></div>
+              </div>
+          </div>
+      </a>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+
+<!-- result -->
+<div class="loadingresult">
+<img src="{% static 'images/blue_load.gif' %}" alt="loading">
+</div>
+<div class="result_page" id="1">
+<div class="result_inner">
+<div class="result_inner2">
+    <h2>{% if language == "arabic"%}
+      تلميح
+      {% endif %}
+      {% if language == "french"%}
+      Indice
+      {% endif %}
+      {% if language == "english"%}
+      Hint
+      {% endif %}</h2>
+    
+    <div class="line"></div>
+    <div class="result_show">
+        <div class="result_msg" id="thehint">
+            ~Generating~
+        </div>
+        <br>
+        <button class="button-24" role="button" onclick="hideresult()">{% if language == "arabic"%}
+          العودة
+          {% endif %}
+          {% if language == "french"%}
+          Retour
+          {% endif %}
+          {% if language == "english"%}
+          Back
+          {% endif %}</button>
+    </div>
+</div>
+
+<!-- rectangle -->
+<img class="behind_bg" src="{% static 'images/bh-clip.png' %}" alt="rectangle">
+</div>
+</div>
+<div class="result_page" id="2">
+<div class="result_inner">
+<div class="result_inner2">
+    <h2>{% if language == "arabic"%}
+      : النتيجة 
+      {% endif %}
+      {% if language == "french"%}
+      Résultat : 
+      {% endif %}
+      {% if language == "english"%}
+      Result :
+      {% endif %}</h2>
+    
+    <div class="line"></div>
+    <div class="result_show">
+        <div class="result_msg" id="thefb">
+            ~Generating~
+        </div><img id="res" src="example.gif" alt="Example GIF">
+        <br>
+        <button id="back" class="button-24" role="button" onclick="hideresult()">{% if language == "arabic"%}
+          العودة
+          {% endif %}
+          {% if language == "french"%}
+          Retour
+          {% endif %}
+          {% if language == "english"%}
+          Back
+          {% endif %}</button>
+        <button id="next" class="button-24" role="button" onclick='loadHTMLPage("/art/",1);'>{% if language == "arabic"%}
+          المسألة التالية
+          {% endif %}
+          {% if language == "french"%}
+          Problème suivant
+          {% endif %}
+          {% if language == "english"%}
+          Next Problem
+          {% endif %}</button>
+        <button id="Similar" class="button-24" role="button" onclick="loadHTMLPage('/show_similar_problems/',1)">{% if language == "arabic"%}
+          مسألة مشابهة
+          {% endif %}
+          {% if language == "french"%}
+          Problème similaire
+          {% endif %}
+          {% if language == "english"%}
+          Similar Problem
+          {% endif %}</button>
+    </div>
+</div>
+
+<!-- rectangle -->
+<img class="behind_bg" src="{% static 'images/bh-clip.png' %}" alt="rectangle">
+</div>
+</div>
+
+<h3 id='PROB' class="q-heading" style="font-family: Arial, sans-serif;color: aliceblue;font-size: 18px;" style="display:none;">
+  {% if language == "arabic"%}
+  {{Problem_ar}}
+  {% endif %}
+  {% if language == "french"%}
+  {{Problem_fr}}
+  {% endif %}
+  {% if language == "english"%}
+  {{Problem}}
+  {% endif %}
+</h3>
+
+<div id="error"></div>
+<script src="Home_assets/js/Bootstrap/bootstrap.min.js"></script>
+<script>
+  function hide(){
+    var btn = document.getElementById("btn1");
+    var img = document.getElementById("img1");
+    btn.style="display:none;";
+    img.style="";
+  }
+</script>
+<!--  saif contents ends here  ------------------------------------------------- --> 
+<style type="text/css">
+  @keyframes ldio-5e857ykiagb {
+    0% { transform: rotate(0deg) }
+    50% { transform: rotate(180deg) }
+    100% { transform: rotate(360deg) }
+  }
+  .ldio-5e857ykiagb div {
+    position: absolute;
+    animation: ldio-5e857ykiagb 1s linear infinite;
+    width: 160px;
+    height: 160px;
+    top: 120px;
+    left: 120px;
+    border-radius: 50%;
+    box-shadow: 0 4px 0 0 #e15b64;
+    transform-origin: 80px 82px;
+  }
+  .loadingio-spinner-eclipse-d06nutrbjt4 {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    background: none;
+  }
+  .ldio-5e857ykiagb {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+  .ldio-5e857ykiagb div { box-sizing: content-box; }
+  /* generated by https://loading.io/ */
+  </style>
+</body>
+
+</html>

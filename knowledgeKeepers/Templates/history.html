@@ -1,0 +1,139 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+
+<!-- Mirrored from templates.seekviral.com/qzain/quiz/Quiz1/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 02 May 2023 20:24:42 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+
+    <link rel="stylesheet" href="{% static 'Home_assets/fonts/font.css' %}">
+
+    <!-- fontawesome 5 -->
+    <link rel="stylesheet" href="{% static 'cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css' %}" />
+    <!-- bootstrap 5 -->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/Bootstrap/bootstrap.min.css' %}">
+
+    <!-- Custom Css Files -->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Home_assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'Home_assets/css/animation.css' %}">
+
+    <!--Result Css-->
+    <link rel="stylesheet" href="{% static 'Home_assets/css/result_style.css' %}">
+    <!-- character style -->
+    <link rel="stylesheet" href="{% static 'history.css' %}">
+</head>
+<body>
+  <style>
+    .container-fluid {
+        overflow-y: scroll;
+        height: 300px; /* Adjust the height as per your requirement */
+    }
+
+    .container-fluid::-webkit-scrollbar {
+        width: 5px; /* Adjust the width as per your design */
+        background-color: transparent; /* Adjust the background color as per your design */
+    }
+
+    .container-fluid::-webkit-scrollbar-thumb {
+        background-color: #FF4742; /* Adjust the background color as per your design */
+    }
+</style>
+  <!--  saif contents goes here  --------------------------------------------------- -->  
+  <div class="container-fluid d-flex  justify-content-center pt-5" style="overflow-y: scroll; height: 850px;">
+    
+      <div class="accordion col-12 " id="accordionExample">
+        <!-- this is an item -->
+        {% for hist in history %}
+        {% if hist.result == 'bad' %}
+        <div class="accordion-item mb-3">
+          <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button
+              class="accordion-button collapsed mh-defeat"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#item{{ forloop.counter }}"
+              aria-expanded="false"
+              aria-controls="item{{ forloop.counter }}"
+              style="color:white;"
+            >
+            {{hist.created_at}}
+            </button>
+          </h2>
+          <div id="item{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-mdb-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>The Problem : </strong> {{Problems|index:hist.problem_id}} 
+              <p><strong>Number of tries :</strong>{{hist.numOfMistakes}}</p>
+              <strong>You Answer :</strong><p> {{hist.user_answer}}</p>
+              <strong>The real Answer :</strong> <p>{{hist.real_answer}}</p>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        {% if hist.result == 'top' %}
+        <div class="accordion-item mb-3">
+          <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button
+              class="accordion-button collapsed mh-victory"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#item{{ forloop.counter }}"
+              aria-expanded="false"
+              aria-controls="item{{ forloop.counter }}"
+            >
+              {{hist.created_at}}
+            </button>
+          </h2>
+          <div id="item{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-mdb-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>The Problem : </strong> {{Problems|index:hist.problem_id}} 
+              <p><strong>Number of tries :</strong>{{hist.numOfMistakes}}</p>
+              <strong>You Answer :</strong><p> {{hist.user_answer}}</p>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="accordion-item mb-3">
+          <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button
+              class="accordion-button collapsed mh-mid"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#item{{ forloop.counter }}"
+              aria-expanded="false"
+              aria-controls="item{{ forloop.counter }}"
+            >
+            {{hist.created_at}}
+            </button>
+          </h2>
+          <div id="item{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-mdb-parent="#accordionExample">
+            <div class="accordion-body">
+              <strong>The Problem : </strong> {{Problems|index:hist.problem_id}} 
+              <P><Strong> You used a hint to solve this :|</Strong></P>
+              <p><strong>Number of tries :</strong>{{hist.numOfMistakes}}</p>
+              <strong>You Answer :</strong><p> {{hist.user_answer}}</p>
+              <strong>The real Answer :</strong> <p>{{hist.real_answer}}</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endif %}
+        {% empty %}
+
+
+        {% endfor %}
+        
+      </div>
+
+    
+  </div>
+<script src="{% static 'Home_assets/js/Bootstrap/bootstrap.min.js' %}"></script>
+<!--  saif contents ends here  ------------------------------------------------- --> 
+
+</body>
+
+</html>

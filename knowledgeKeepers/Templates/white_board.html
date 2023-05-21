@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Whiteboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      #whiteboard {
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="width: 100%;">
+      <div style="float: left; width: 60%;">
+        <canvas id="whiteboard" width="800" height="700"></canvas>
+      </div>
+      <div style="float: right; width: 15%;">
+        <img src="{% static 'images/numbers/0.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/1.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/2.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/3.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/4.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/5.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/6.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/7.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/8.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/9.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/plus.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+        <br>
+        <img src="{% static 'images/numbers/x.png' %}" style="display: inline-block;" alt="number 0" width="120" height="50" />
+
+      </div>
+      <div style="clear: both;"></div>
+      <div style="margin-top: 10px;">
+        <button type="button" class="button-24" id="clear">Clear</button>
+        <button type="button" class="button-24" id="submit-btn">submit</button>
+      </div>
+    </div>
+    <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static 'whiteboard/whiteboard.js' %}"></script>
+
+    <script>
+
+function clearCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);                  
+        }
+
+        const clearbtn = document.getElementById("clear");
+        clearbtn.addEventListener('click', clearCanvas);
+        const submitbtn = document.getElementById("submit-btn");
+        submitbtn.addEventListener('click', submit);
+        
+  function submit() {
+    // const formData = new FormData();
+    // formData.append('imagedata', canvas.toDataURL('image/png'));
+    const imageString = canvas.toDataURL('image/png').split(',')[1];
+    console.log(imageString)
+    
+    $.ajax({
+      type: 'POST',
+      url: '/whiteboard/',
+      data: JSON.stringify({ foo: imageString }),
+      processData: false,
+      contentType: 'application/json',
+      dataType: 'json',
+      success: function(response) {
+        // Do something with the response
+        $('#detected-text').text(response);
+        window.opener.postMessage(response, window.location.origin);
+        window.close();
+
+      },
+      error: function(error) {
+        console.log(error);
+        window.opener.postMessage(error.responseText, window.location.origin);
+        window.close();
+      }
+    });
+  }
+      </script>
+      
+      <p id="detected-text"></p>
+      </body>
+</html>

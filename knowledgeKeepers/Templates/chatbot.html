@@ -1,0 +1,90 @@
+
+{% load static %}
+{% block all %}
+{% endblock %}
+    <link rel="stylesheet" href="{% static 'chatbot/css/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'chatbot/css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <!-- CHAT BAR BLOCK -->
+    <div class="chat-bar-collapsible" style="z-index: 10000000;">
+        {% if language == "arabic"%}
+        <button id="chat-button" type="button" class="collapsible" style="text-align: right;">
+            <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
+            تحدث معنا
+            {% endif %}
+            {% if language == "french"%}
+            <button id="chat-button" type="button" class="collapsible" style="text-align: left;">
+            Discutez avec nous !
+            <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
+            {% endif %}
+            {% if language == "english"%}
+            <button id="chat-button" type="button" class="collapsible" style="text-align: left;">
+            Chat with us!
+            <i id="chat-icon" style="color: #fff;" class="fa fa-fw fa-comments-o"></i>
+            {% endif %}
+            
+        </button>
+
+        <div class="content">
+            <div class="full-chat-block">
+                <!-- Message Container -->
+                <div class="outer-container" style="z-index: 10000000;">
+                    <div class="chat-container">
+                        <!-- Messages -->
+                        <div id="chatbox">
+                            <h5 id="chat-timestamp"></h5>
+                            <p id="botStarterMessage" class="botText"><span>{% if language == "arabic"%}
+                                جار التحميل
+                                {% endif %}
+                                {% if language == "french"%}
+                                Chargement en cours...
+                                {% endif %}
+                                {% if language == "english"%}
+                                Loading...
+                                {% endif %}</span></p>
+                        </div>
+
+                        <!-- User input box -->
+                        <div class="chat-bar-input-block">
+                            <div id="userInput">
+                                {% if language == "arabic"%}
+            <input id="textInput" class="input-box" type="text" name="msg"
+                                    placeholder="اضغط لإرسال الرسالة">
+                                    {% endif %}
+            {% if language == "french"%}
+            <input id="textInput" class="input-box" type="text" name="msg"
+                                    placeholder="Appuyez sur la touche 'Entrée' pour envoyer un message.">
+            {% endif %}
+            {% if language == "english"%}
+            <input id="textInput" class="input-box" type="text" name="msg"
+                                    placeholder="Tap 'Enter' to send a message">
+            {% endif %}
+                                
+                                <p></p>
+                            </div>
+
+                            <div class="chat-bar-icons">
+                                <i id="chat-icon" style="color: #333;" class="fa fa-fw fa-send"
+                                    onclick="sendButton()"></i>
+                            </div>
+                        </div>
+
+                        <div id="chat-bar-bottom">
+                            <p></p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="{% static 'chatbot/scripts/responses.js' %}"></script>
+<script src="{% static 'chatbot/scripts/chat.js' %}"></script>
+

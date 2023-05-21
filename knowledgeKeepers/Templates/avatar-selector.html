@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- bootstrap 5 -->
+    <link rel="stylesheet" href="{% static 'avatar/assets/css/Bootstrap/bootstrap.min.css' %}">
+    <!-- Custom Css Files -->
+    <link rel="stylesheet" href="{% static 'avatar/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'inscription/assets/css/grade_btns.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+    <!-- bar -->
+    <div class="step-bar">
+        <div class="bar">
+            <div class="w-100 fill"></div>
+        </div>
+        <div class="bar">
+            <div class="fill w-100"></div>
+        </div>
+    </div>
+
+    <section class="vh-100 gradient-custom ">
+        <div class="container py-5 h-100" >
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" 
+              style="background: rgba(255, 255, 255, 0.76);
+              border-radius: 16px;
+              box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+              backdrop-filter: blur(18.9px);
+              -webkit-backdrop-filter: blur(18.9px);
+              border: 1px solid rgba(255, 255, 255, 0.3);">
+
+                <div class="card-body p-4 p-md-5" >
+                  <h3 class="mb-2 pb-2 pb-md-0 mb-md-5"><strong>Make your avatar</strong></h3>
+                 <div class="row ">
+                   
+                    <div class="d-flex flex-column align-items-end" style="width:50%; height:90%;">
+                        
+                        
+                        <div class="d-flex flex-row mb-2 align-self-start" style="width:100%">
+                          <h5 class="align-self-start" style="padding-right: 59%;">Hair</h5>
+                                <input type="Color" name="" id="Hair" class=" from-control form-control-color form-bg" value="#FF0000">
+                    </div>
+                    
+                        
+                        <div class="d-flex flex-row mb-2 align-self-start "  style="width:100%">
+                          <h5 class="align-self-start" style="padding-right: 57%;">Skin</h5>
+                                <input type="Color" name="" id="Skin" class=" from-control form-control-color form-bg" value="#ff746a">
+                    </div>
+                    
+                        
+                        <div class="d-flex flex-row mb-2  align-self-start "  style="width:100%">
+                          <h5 class="align-self-start" style="padding-right: 44.5%;">BG Color</h5>
+                              
+                                <input type="Color" name="" id="bgColor" class=" from-control form-control-color form-bg">
+                              
+                    </div>
+                    <div class="d-flex flex-row align-self-start mt-2">    
+                        <div class="dropdown me-2">
+                            <select id="hair-type">
+                                <option value="no_hair">No Hair</option>
+                                <option value="big_hair">Big Hair</option>
+                                <option value="bob">Bob</option>
+                                <option value="bun">Bun</option>
+                                <option value="caesar_side_part">Caesar Side Part</option>
+                                <option value="caesar">Caesar</option>
+                                <option value="curly">Curly</option>
+                                <option value="curvy">Curvy</option>
+                                <option value="dreads">Dreads</option>
+                                <option value="frida">Frida</option>
+                                <option value="frizzle">Frizzle</option>
+                                <option value="fro_band">Fro Band</option>
+                                <option value="fro">Fro</option>
+                                <option value="long_not_too_long">Long Not Too Long</option>
+                                <option value="mia_wallace">Mia Wallace</option>
+                                <option value="shaggy_mullet">Shaggy Mullet</option>
+                                <option value="shaggy">Shaggy</option>
+                                <option value="shaved_sides">Shaved Sides</option>
+                                <option value="short_curly">Short Curly</option>
+                                <option value="short_dreads_1">Short Dreads 1</option>
+                                <option value="short_dreads_2">Short Dreads 2</option>
+                                <option value="short_flat">Short Flat</option>
+                                <option value="short_round">Short Round</option>
+                                <option value="short_waved">Short Waved</option>
+                                <option value="sides">Sides</option>
+                                <option value="straight_1">Straight 1</option>
+                                <option value="straight_2">Straight 2</option>
+                                <option value="straight_strand">Straight Strand</option>
+                                <option value="astronout">Astronout</option>
+                                <option value="braids">Braids</option>
+                                <option value="bride">Bride</option>
+                                <option value="buzzcut">Buzzcut</option>
+                                <option value="cornrows">Cornrows</option>
+                                <option value="curly_2">Curly 2</option>
+                                <option value="dreadlocks">Dreadlocks</option>
+                                <option value="einstein_hair">Einstein Hair</option>
+                                <option value="elvis">Elvis</option>
+                                <option value="evil_spike">Evil Spike</option>
+                                <option value="half_shaved">Half Shaved</option>
+                                <option value="hat">Hat</option>
+                                <option value="long_hair_curly">Long Hair Curly</option>
+                                <option value="loose_hair">Loose Hair</option>
+                                <option value="mohawk">Mohawk</option>
+                                <option value="mowgli">Mowgli</option>
+                                <option value="pixie" selected>Pixie</option>
+                                <option value="pompadour">Pompadour</option>
+                                <option value="quiff">Quiff</option>
+                                <option value="twist_long_hair">Twist Long Hair</option>
+                                <option value="twist_long_hair_2">Twist Long Hair 2</option>
+                                <option value="wick">Wick</option>
+                          </select>
+                          </div>
+
+                    </div>
+                    <h5 class="align-self-start" style="padding-top: 5vh;">Avatar Name</h5>
+                        
+                        <div class="d-flex flex-row align-self-start " >
+                              <div class="form-outline mb-2  ">
+                                <input type="text" id="shirt_text" class=" form-control form-control-lg form-bg" />
+                              </div>                              
+                    </div>
+
+                 </div>
+                 <img id="avatar-img" src="{% static 'images/my_avatar.svg' %}" style="width: 50%; height: 90%;"> 
+                 <a class="btn-3" href="#" onclick="sendColors(done=true)"><strong style="font-size: 23px;">Save</strong></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+      <script src="{% static 'avatar/assets/js/Bootstrap/bootstrap.min.js' %}"></script>
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+      <script>
+        const hairInput = document.getElementById("Hair");
+const skinInput = document.getElementById("Skin");
+const background = document.getElementById("bgColor");
+const shirt = document.getElementById("shirt_text");
+const hairTypeSelect = document.getElementById('hair-type');
+  let selectedHairType = hairTypeSelect.value;
+
+  hairTypeSelect.addEventListener('change', (event) => {
+    selectedHairType = event.target.value;
+    console.log('Selected hair type:', selectedHairType);
+    sendColors(false);
+    // You can do something with the selected hair type value here
+  });
+shirt.addEventListener("change", function(event) {
+  const color = event.target.value;
+  sendColors(false)
+  // Do something with the color value
+});
+
+hairInput.addEventListener("change", function(event) {
+  const color = event.target.value;
+  sendColors()
+  // Do something with the color value
+});
+
+skinInput.addEventListener("change", function(event) {
+  const color = event.target.value;
+  console.log(color);
+  sendColors(false)
+  // Do something with the color value
+});
+
+background.addEventListener("change", function(event) {
+  const color = event.target.value;
+  sendColors(false)
+  // Do something with the color value
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+let avatarImg = document.getElementById("avatar-img");
+
+
+function sendColors(done=false) {
+  const hairColor = hairInput.value;
+  const skinColor = skinInput.value;
+  const backgroundColor = background.value;
+  const shirt_text = shirt.value;
+
+  const data = {
+    hair_color: hairColor,
+    skin_color: skinColor,
+    background_color: backgroundColor,
+    shirt_text:shirt_text,
+    selected_hair:selectedHairType,
+    done_:done
+  };
+  $.ajax({
+    type: "POST",
+    url: "/avatar/",
+    data: data,
+    beforeSend: function(xhr, settings) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    },
+    success: function(response) {
+        console.log(response);
+        const blob = new Blob([response.svg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const img = document.getElementById('my-image');
+         avatarImg.src = url
+        if (done){
+          window.location.href = '/home/';
+        }
+    },
+    error: function(xhr, status, error) {
+        console.log(error);
+    }
+});
+}
+      </script>
+
+
+      
+
+</body>
+</html>

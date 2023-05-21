@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap.min.css' %}" >
+      <!-- site css -->
+      <link rel="stylesheet" href="{% static 'Backend/style.css'%}" >
+      <!-- responsive css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/responsive.css'%}" >
+      <!-- color css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/colors.css'%}" >
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap-select.css'%}" >
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/perfect-scrollbar.css'%}" >
+      <!-- custom css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/custom.css'%}" >
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/semantic.min.css'%}" >
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body class="inner_page project_page">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                        <img class="logo_icon img-responsive" src="{%static 'Backend/images/kk.png'%}" alt="#" />
+                     </div>
+                  </div>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div ><img class="img-responsive" src="{%static 'Backend/images/family.png'%}" alt="#" style="width: 80px; height: 75px;" /></div>
+                        <div class="user_info">
+                           <h6>{{nom}}</h6>
+                           <p><span class="online_animation"></span> Online</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4>General</h4>
+                  <ul class="list-unstyled components">
+                     <ul class="list-unstyled components">
+                        <li><a href="/students/"><i class="fa fa-child orange_color" ></i> <span>Students</span></a></li>
+                     </br>
+                        <li><a href="/historique/"><i class="fa fa-history red_color"></i> <span>Students' Records</span></a></li>
+                     </br>
+                        <li><a href="/grade/"><i class="fa fa-tasks blue1_color"></i> <span>Predict Grade</span></a></li>
+                     </br>
+                       
+                     </ul>
+                  </ul>
+               </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+    
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                              
+                              <ul class="user_profile_dd">
+                                 <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img  src="{%static 'Backend/images/family.png'%}" alt="#" /><span class="name_user">{{nom}}</span></a>
+                                    <div class="dropdown-menu">
+                                       <a class="dropdown-item" onclick="logout()" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Student's history</h2>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row -->
+                     <div class="row column1">
+                        <div class="col-md-12">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>Student's history</h2>
+                                 </div> </br></br>
+                                 <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Select The Student</button>
+                                    <div id="student-info" class="dropdown-menu">
+                                       {% for item in all %} 
+                                       <a class="dropdown-item" href="#" data-id="{{item.user}}">{{item.first_name}} {{item.last_name}}</a>
+                                       {% endfor %}
+                                    </div>
+                              </div>
+                              
+                              <div class="full price_table padding_infor_info">
+                                 <div class="row">
+                                    <div class="col-lg-12">
+                                       <div class="table-responsive-sm">
+                                          <table class="table table-striped projects">
+                                             <thead class="thead-dark">
+                                                <tr>
+                                                   <th style="width: 2%">N°</th>
+                                                   <th style="width: 30%">Problem</th>
+                                                   <th style="width: 5%">Student's answer</th>
+                                                   <th style="width: 30%">Problem's answer</th>
+                                                   <th style="width: 20%">Date</th>
+                                                   <th style="width: 30%">result</th>
+
+
+                                                </tr>
+                                             </thead>
+                                             <tbody id="table-body">
+                                                {% if si %}
+                                                 {% for s in si %}
+                                                 <tr>
+                                                   <td>
+                                                      {{ forloop.counter }}
+
+                                                   </td>
+
+                                                   <td>
+                                                 {{s.problem_text}}
+                                                </td>
+                                                <td>
+                                                 {{s.user_answer}}
+                                                </td>
+                                                 <td>
+                                                 {{s.real_answer}}
+                                                </td>
+                                                <td>
+                                                   {{s.created_at}}
+                                                  </td>
+                                                <td>
+                                                 {% if s.result == 'bad'%}
+                                                 <div class="button_block"><button type="button" class="btn cur-p btn-danger">WRONG</button></div>
+                                                 {% endif %}
+
+                                                 {% if s.result == 'top' %}
+
+                                                 <div class="button_block"><button type="button" class="btn cur-p btn-success">CORRECT</button></div>
+                                                 {% endif %}
+                                                 {% if s.result == 'mid' %}
+
+                                                 <div class="button_block"><button type="button" class="btn cur-p btn-warning">Hint Used</button></div>
+                                                 {% endif %}
+                                                </td>
+
+                                                </tr>
+                                                 {% endfor %}
+
+                                                {% endif %}
+
+                                             </tbody>
+                                          </table>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- end row -->
+                     </div>
+                     <!-- footer -->
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="footer">
+                              <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- end dashboard inner -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="{% static 'js/result.js' %}"></script>
+      <!-- jQuery -->
+      <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
+      <!-- jQuery -->
+      <script src="{% static 'Backend/js/popper.min.js'%}"></script>
+      <script src="{% static 'Backend/js/bootstrap.min.js'%}"></script>
+      <!-- wow animation -->
+      <script src="{% static 'Backend/js/animate.js'%}"></script>
+      <!-- select country -->
+      <script src="{% static 'Backend/js/bootstrap-select.js'%}"></script>
+      <!-- owl carousel -->
+      <script src="{% static 'Backend/js/owl.carousel.js'%}"></script> 
+      <!-- chart js -->
+      <script src="{% static 'Backend/js/Chart.min.js'%}"></script>
+      <script src="{% static 'Backend/js/Chart.bundle.min.js'%}"></script>
+      <script src="{% static 'Backend/js/utils.js'%}"></script>
+      <script src="{% static 'Backend/js/analyser.js'%}"></script>
+      <!-- nice scrollbar -->
+      <script src="{% static 'Backend/js/perfect-scrollbar.min.js'%}"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="{% static 'Backend/js/custom.js'%}"></script>
+      <!-- calendar file css -->     
+      <script src="{% static 'Backend/js/semantic.min.js'%}"></script>
+      <script>
+         $(document).ready(function() {
+           $('.dropdown-menu a').click(function(e) {
+            e.preventDefault();
+             // Get the ID of the selected student
+             var studentId = $(this).data('id');
+             console.log(studentId);
+
+             // Make an AJAX request to the server to get the information for the selected student
+             $.ajax({
+               url: '/historique/',
+               type: 'POST',
+               data: {'student_id': studentId},
+               success: function(data) {
+                  var mathProblems = data.math;
+      var tableBody = $('#table-body');
+      tableBody.empty(); // Clear any existing rows
+      var rowNumber = 1; // Initialize the row number            
+      $.each(mathProblems, function(index, problem) {
+         // Create a new row with the problem and answer data
+         var buttonHTML = '';
+// Check the value of problem.result and set the result message accordingly
+         if (problem.result == 'bad') {
+            buttonHTML = '<div class="button_block"><button type="button" class="btn cur-p btn-danger">WRONG</button></div>'
+               } else if (problem.result == 'top') {
+            buttonHTML =  ' <div class="button_block"><button type="button" class="btn cur-p btn-success">CORRECT</button></div>'
+            }
+               else if(problem.result == 'mid'){
+               buttonHTML =  '<div class="button_block"><button type="button" class="btn cur-p btn-warning">Hint Used</button></div>'
+            }
+         var newRow = $('<tr>');
+         newRow.append($('<td>').text(rowNumber++));
+         newRow.append($('<td>').text(problem.problem_text));
+         newRow.append($('<td>').text(problem.user_answer));
+         newRow.append($('<td>').text(problem.real_answer));
+         newRow.append($('<td>').text(problem.created_at));
+         newRow.append($('<td>').html(buttonHTML));
+
+
+
+
+         // Add the new row to the table body
+         tableBody.append(newRow);
+      });
+               }
+             });
+           });
+         });
+       </script>
+   </body>
+</html>

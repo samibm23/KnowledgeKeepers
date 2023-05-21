@@ -1,0 +1,410 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap.min.css' %}" >
+      <!-- site css -->
+      <link rel="stylesheet" href="{% static 'Backend/style.css'%}" >
+      <!-- responsive css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/responsive.css'%}" >
+      <!-- color css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/colors.css'%}" >
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="{% static 'Backend/css/bootstrap-select.css'%}" >
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/perfect-scrollbar.css'%}" >
+      <!-- custom css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/custom.css'%}" >
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="{% static 'Backend/css/semantic.min.css'%}" >
+      <!--<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>-->
+   </head>
+   <body class="inner_page contact_page">
+      <div class="full_container">
+         <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+               <div class="sidebar_blog_1">
+                  <div class="sidebar-header">
+                     <div class="logo_section">
+                     </div>
+                  </div>
+                  <div class="sidebar_user_info">
+                     <div class="icon_setting"></div>
+                     <div class="user_profle_side">
+                        <div ><img class="img-responsive" src="{%static 'Backend/images/family.png'%}" alt="#" style="width: 80px; height: 75px;"/></div>
+                        <div class="user_info">
+                           <h6>{{name}}</h6>
+                           <p><span class="online_animation"></span> Online</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sidebar_blog_2">
+                  <h4>General</h4>
+                  <ul class="list-unstyled components">
+                     <ul class="list-unstyled components">
+
+                     <li><a href="/students/"><i class="fa fa-child orange_color" ></i> <span>Students</span></a></li>
+                  </br>
+                     <li><a href="/historique/"><i class="fa fa-history red_color"></i> <span>Students' Records</span></a></li>
+                  </br>
+                     <li><a href="/grade/"><i class="fa fa-tasks blue1_color"></i> <span>Predict Grade</span></a></li>
+                  </br>
+               </ul>
+                  </ul>
+               </div>
+            </nav>
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+               <!-- topbar -->
+               <div class="topbar">
+                  <nav class="navbar navbar-expand-lg navbar-light">
+                     <div class="full">
+                        <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                        <div class="logo_section">
+                        </div>
+                        <div class="right_topbar">
+                           <div class="icon_info">
+                              
+                              <ul class="user_profile_dd">
+                                 <li>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img  src="{%static 'Backend/images/family.png'%}" alt="#" /><span class="name_user">{{name}}</span></a>
+                                    <div class="dropdown-menu">
+                                       <a class="dropdown-item" onclick="logout()" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </nav>
+               </div>
+               <!-- end topbar -->
+               <!-- dashboard inner -->
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <div class="row column_title">
+                        <div class="col-md-12">
+                           <div class="page_title">
+                              <h2>Charts</h2>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- row -->
+                     <div class="row column1">
+                        <div class="col-md-12">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>{{data}}'s Performance</h2>
+                                 </div>
+                              </div>
+                              <div class="full price_table padding_infor_info">
+
+                           </div>
+
+
+                                 <div class="row ">
+                                    <div class="col-md-6">
+                                       <div class="full counter_section margin_bottom_30" style="width: 700px; height: 500px;">
+                                          <canvas id="chart" width="500" height="300"></canvas>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <div class="heading1 margin_0">
+                                          <h2>{{data}}'s results over {{l}} Problems   <small>(%)</small></h2>
+                                       </div> 
+                                       <div class="full counter_section margin_bottom_30" style="width: 600px; height: 455px; ">
+       
+                                          
+                                          <canvas id="third_chart" width="200" height="300"></canvas>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 
+                              
+
+                              
+                              <div class="full graph_head">
+                                 <div class="heading1 margin_0">
+                                    <h2>General <small>(all of the students)</small></h2>
+
+                                 </div>
+                              </div>
+                           <div class="row ">
+                              <div class="col-md-6 ">
+                                 <div class="heading1 margin_0" style="padding: 20px;">
+                                    <h2>All results in each grade</h2>
+                                    </div>
+                                 <div class="full counter_section margin_bottom_30" style="width: 700px; height: 400px;">
+
+                                    <canvas id="f_chart" width="1500" height="800" ></canvas>
+
+                                 </div>
+                              </div>
+                              <div class="col-md-6 ">
+                                 <div class="heading1 margin_0" style="padding: 20px;">
+                                 <h2>N° of students in each grade </h2>
+                                 </div> 
+                                 <div class="full counter_section margin_bottom_30" style="width: 600px; height: 400px;">
+     
+                                    <canvas id="s_chart" width="100" height="200" ></canvas>
+
+                                 </div>
+                              </div>
+                             
+                           </div>
+
+                                 </div>
+
+
+                        </div>
+                        <!-- end row -->
+                     </div>
+                     <!-- footer -->
+                     <div class="container-fluid">
+     
+                     </div>
+                  </div>
+                  <!-- end dashboard inner -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="{% static 'Backend/sendmail.js'%}"></script>
+      <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
+      <script src="{% static 'js/result.js' %}"></script>
+      <!-- jQuery -->
+      <script src="{% static 'Backend/js/popper.min.js'%}"></script>
+      <script src="{% static 'Backend/js/bootstrap.min.js'%}"></script>
+      <!-- wow animation -->
+      <script src="{% static 'Backend/js/animate.js'%}"></script>
+      <!-- select country -->
+      <script src="{% static 'Backend/js/bootstrap-select.js'%}"></script>
+      <!-- owl carousel -->
+      <script src="{% static 'Backend/js/owl.carousel.js'%}"></script> 
+      <!-- chart js -->
+      <script src="{% static 'Backend/js/Chart.min.js'%}"></script>
+      <script src="{% static 'Backend/js/Chart.bundle.min.js'%}"></script>
+      <script src="{% static 'Backend/js/utils.js'%}"></script>
+      <script src="{% static 'Backend/js/analyser.js'%}"></script>
+      <!-- nice scrollbar -->
+      <script src="{% static 'Backend/js/perfect-scrollbar.min.js'%}"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+      <!-- custom js -->
+      <script src="{% static 'Backend/js/custom.js'%}"></script>
+      <!-- calendar file css -->     
+      <script src="{% static 'Backend/js/semantic.min.js'%}"></script>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+
+
+
+      <script>
+      const l ="{{nbr}}";
+      console.log(l)
+            //all the grades with the results
+      const grade_1_data = JSON.parse('{{one|safe}}' );
+      const grade_2_data = JSON.parse('{{two|safe}}');
+      const grade_3_data = JSON.parse('{{three|safe}}');
+      const grade_4_data = JSON.parse('{{four|safe}}');
+      const grade_5_data = JSON.parse('{{five|safe}}');
+      const grade_6_data = JSON.parse('{{six|safe}}');
+
+         // Get the current system date
+      const currentDate = new Date();
+
+// Create an array to hold the labels
+      const labels = [];
+
+// Generate labels for 7 days before the current date
+for (let i = 6; i >= 0; i--) {
+  // Calculate the date 7 days ago
+  const date = new Date(currentDate);
+  date.setDate(date.getDate() - i);
+  
+  // Format the date as desired (e.g., "YYYY/MM/DD")
+  const options = { weekday: 'long' };
+  const dayOfWeek = date.toLocaleDateString('en-US', options);
+  // Add the formatted date to the labels array
+  labels.push(dayOfWeek);
+}       // FIRST CHART  //
+      let ctx = document.getElementById("chart").getContext("2d");
+      let chart = new Chart(ctx, {
+         
+  type: "bar",
+  options: {
+   scales: {
+      y: {
+         display: true,
+        title: {
+          display: true,
+          text: 'N° of done problems '
+        },
+         ticks: {
+          precision: 0, // Set precision to 0 to display whole numbers
+        },
+      }
+    }
+  },
+  data: {
+     labels: labels,
+     
+     datasets: [
+        {
+         
+
+          label: "{{data}}"+" activity in the last 7 days",
+          backgroundColor: [
+  "#F8D5E3", // Lightest
+  "#F2A2C5",
+  "#EB6FAB",
+  "#E53C8E",
+  "#D7297B",
+  "#C61768",
+  "#B50555" // Darkest
+],
+          borderColor: "#417690",
+          data: JSON.parse('{{nbr|safe}}'),
+
+          
+        }
+     ]
+     
+  
+  },
+
+});
+
+
+
+                                 //SECOND CHART
+
+
+                                 const data = {
+  labels: ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5','Grade 6' ],
+  datasets: [{
+    data: JSON.parse('{{grade_counts|safe}}'),
+
+    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2ECC71', '#9B59B6', '#FF8C00'] 
+  }]
+};
+
+// Get the canvas element
+const canvas = document.getElementById('s_chart');
+
+// Create the pie chart
+new Chart(canvas, {
+  type: 'pie',
+  data: data,
+  options: {
+    title: {
+      display: true,
+      text: 'Pie Chart Example'
+    }
+  }
+});                          
+
+
+
+                                 //third(student) CHART
+
+
+                                 const da = {
+  labels: ['Correct', 'Incorrect', 'Used a hint' ],
+  datasets: [{
+    data: JSON.parse('{{per|safe}}'),
+
+    backgroundColor: [
+  "#2ECC71", // Green
+  "#FF6384", // Red
+  "#FFCE56"  // Yellow
+],  }]
+};
+
+// Get the canvas element
+const can = document.getElementById('third_chart');
+
+// Create the pie chart
+new Chart(can, {
+  type: 'doughnut',
+  data: da,
+  options: {
+    title: {
+      display: true,
+      text: 'Pie Chart Example'
+    }
+  }
+});   
+
+               //FINAL
+
+               const dat = {
+      labels: ['Grade 1', 'Grade2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6'],
+      datasets: [
+        {
+          label: 'Incorrect',
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          data: [grade_1_data[1], grade_2_data[1], grade_3_data[1], grade_4_data[1], grade_5_data[1], grade_6_data[1]]
+        },
+        {
+          label: 'Used a hint',
+          backgroundColor: 'rgba(255, 204, 0, 0.5)',
+          data: [grade_1_data[2], grade_2_data[2], grade_3_data[2], grade_4_data[2], grade_5_data[2], grade_6_data[2]]
+        },
+        {
+          label: 'Correct',
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',
+          data: [grade_1_data[0], grade_2_data[0], grade_3_data[0], grade_4_data[0], grade_5_data[0], grade_6_data[0]]
+        }
+      ]
+    };
+
+    // Chart configuration
+    const config = {
+      type: 'bar',
+      data: dat,
+      options: {
+    scales: {
+      x: {
+        stacked: true,
+   
+      },
+      y: {
+        display: true,
+        stacked: true,
+        title: {
+          display: true,
+          text: 'N° of problems'
+        }
+      }
+    }
+  }
+    };
+
+    // Create and render the chart
+    const ct = document.getElementById('f_chart').getContext('2d');
+    new Chart(ct, config);
+      </script>
+   </body>
+</html>

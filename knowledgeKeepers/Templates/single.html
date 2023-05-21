@@ -1,0 +1,85 @@
+{% load static %}
+<div class="row">
+  <div class="tab-100 order-c col-md-6 p-relative">
+
+      <!-- side image -->
+      
+      <div class="side-img">
+        <!-- <image style="height: 100vh;" src="{% static 'Home_assets/images/welcome.png' %}"></image> -->
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_jrpzvtqz.json" background="transparent"  speed="1"  style="height: 100vh;" loop autoplay></lottie-player>
+    </div>
+      <!-- bar -->
+  </div>
+  <div class="tab-100 col-md-6">
+      <div class="show-section wrapper">
+
+          <!-- step 1 -->
+          <section class="steps" style="margin-top: 15vh;">
+                 {% if language == "arabic"%}
+                 <style>
+                  h1 {
+                    text-align: right !important;
+                    direction: rtl !important;
+                  }
+                </style>
+                 <h1 stye="text-align: right !important; direction: rtl !important; font-size: 24px !important;">
+                  مرحبًا بكم أيها الطلاب
+                  {% endif %}
+                  <h1 stye="text-align:left;">
+                  {% if language == "french"%}
+                  Salut les étudiants !
+                  {% endif %}
+                  {% if language == "english"%}
+                  <h1 stye="text-align:left;">
+                  Hello students!
+                  {% endif %}</h1> 
+                 {% if language == "arabic"%}
+                 <p style=" font-family: 'Eina02normal';
+                  font-size: 1.1em;
+                 line-height: 150%;
+                 text-align: right;
+                 color: back;
+                 letter-spacing: .5px;
+                 margin-top: 5vh;">
+هل أنت مستعد لرفع مهاراتك في الرياضيات إلى المستوى التالي؟ منصتنا التعليمية عبر الإنترنت هنا لمساعدتك في ذلك! لقد صممنا طريقة ممتعة وتفاعلية لتعزيز مهاراتك في الرياضيات من خلال مجموعة متنوعة من المسائل. مع مساعدة التعلم الآلي، يمكنك إنشاء صور لمساعدتك في فهم المسائل بشكل أفضل وتطوير مهارات التفكير البصري. بالإضافة إلى ذلك، ستحصل على ردود فورية لمساعدتك في تحسين مهاراتك في حل المسائل. نحن نضيف باستمرار ميزات جديدة لجعل عملية التعلم أكثر إشراكًا ويسهل الوصول إليها بالنسبة لك. فلماذا تنتظر؟    {% endif %}
+{% if language == "french"%}
+<p style=" font-family: 'Eina02normal';
+                  font-size: 1.1em;
+                 line-height: 150%;
+                 text-align: left;
+                 color: back;
+                 letter-spacing: .5px;
+                 margin-top: 5vh;">
+Êtes-vous prêts à améliorer vos compétences en mathématiques ? Notre plateforme d'apprentissage en ligne est là pour vous aider à atteindre cet objectif ! Nous avons conçu une manière amusante et interactive pour vous permettre de développer vos compétences mathématiques à travers une variété de problèmes. Grâce à l'apprentissage automatique, vous pouvez générer des images pour mieux comprendre les problèmes et développer votre pensée visuelle. De plus, vous recevrez un retour instantané pour améliorer vos compétences en résolution de problèmes. Nous ajoutons constamment de nouvelles fonctionnalités pour rendre l'apprentissage plus captivant et accessible pour vous. Alors, pourquoi attendre ?
+{% endif %}
+{% if language == "english"%}
+<p style=" font-family: 'Eina02normal';
+                  font-size: 1.1em;
+                 line-height: 150%;
+                 text-align: left;
+                 color: back;
+                 letter-spacing: .5px;
+                 margin-top: 5vh;">
+Are you ready to take your math skills to the next level? Our online learning platform is here to help you do just that! We've designed a fun and interactive way for you to enhance your math skills through a variety of math problems. With the help of Machine Learning, you can generate images to help you better understand the problems and develop your visual thinking skills. Plus, you'll get instant feedback to help you improve your problem-solving skills. We're constantly adding new features to make learning more engaging and accessible for you. So why wait?
+{% endif %}</p>
+<center>
+<button class="button-24" role="button" onclick="triggerClickEvent()" style="margin-top: 5vh;">{% if language == "arabic"%}
+ابدأ التعلم
+{% endif %}
+{% if language == "french"%}
+Commencer l'apprentissage !
+{% endif %}
+{% if language == "english"%}
+Start Learning!
+{% endif %}</button>
+</center>
+          </section>
+
+         
+
+
+
+      </div>
+
+  </div>
+</div>
