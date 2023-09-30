@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/ixdsn4y.png " width="100" height="100">
+<img src="https://i.imgur.com/ixdsn4y.png " width="500" height="500">
 
 
 # Educational Interactive-Intelligent Platform
