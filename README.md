@@ -1,5 +1,5 @@
 
-![Logo](https://i.imgur.com/ixdsn4y.png)
+![Logo](https://i.imgur.com/ixdsn4y.png )
 
 
 
@@ -22,5 +22,5 @@ In recent years, there has been a growing demand for innovative educational tool
 **Models:** face-recognition,pytesseract,Stable Diffusion + dall-E, NLLB-200,Speech Recognition,gtts + pyttsx3
 
 
-
+[![Watch the video]([https://www.youtube.com/watch?v=YOUR_VIDEO_ID](https://www.veed.io/view/efa43e65-6b13-4571-bb35-5c75949efa86?panel=share))
 
