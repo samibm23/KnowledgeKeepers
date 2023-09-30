@@ -1,5 +1,6 @@
+<div style="text-align:center;">
 <img src="https://i.imgur.com/ixdsn4y.png " width="500" height="500">
-
+</div>
 
 # Educational Interactive-Intelligent Platform
 
