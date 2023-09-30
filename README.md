@@ -1,7 +1,6 @@
 <img src="https://i.imgur.com/ixdsn4y.png " width="100" height="100">
 
 
-
 # Educational Interactive-Intelligent Platform
 
 ### Introduction
