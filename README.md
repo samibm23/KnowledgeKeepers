@@ -21,7 +21,7 @@ In recent years, there has been a growing demand for innovative educational tool
 
 **Models:** face-recognition,pytesseract,Stable Diffusion + dall-E, NLLB-200,Speech Recognition,gtts + pyttsx3
 
-
+### Video
 [![Watch the video](https://img.youtube.com/vi/n9heYB7wpyk/0.jpg)](https://www.youtube.com/watch?v=n9heYB7wpyk)
 
 
